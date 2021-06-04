@@ -26,7 +26,7 @@
 <ConfigLayout>
   <ContentLayout>
     <nav class="flex-row">
-      <a href={'/'}>Main</a>
+      <a href={'/#/'}>Main</a>
       <a href={'/#/login'}>Login</a>
       <a href={'/#/fuqs'}>Fuqs</a>
     </nav>

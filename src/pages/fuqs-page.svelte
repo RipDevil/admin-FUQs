@@ -1,9 +1,4 @@
-<script lang="ts">
-  import Private from '../layout/private-path.svelte';
-</script>
 
-<Private>
-  <p class="text-5xl">
-    Fuqs Page
-  </p>
-</Private>
+<p class="text-5xl tracking-wide py-2">
+  Fuqs Page
+</p>
