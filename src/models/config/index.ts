@@ -1,5 +1,6 @@
-import axios from 'axios';
 import type { AxiosResponse } from 'axios';
+
+import { call } from '../../utils/call';
 
 export type ConfigType = {
   server: string;
@@ -8,6 +9,6 @@ export type ConfigType = {
 export type ConfigPromise = Promise<AxiosResponse<ConfigType>>;
 
 export function getConfig():ConfigPromise {
-  return axios.get<ConfigType, AxiosResponse<ConfigType>>('/config.json');
+  return call<ConfigType>('/config.json', 'GET');
 }
 
