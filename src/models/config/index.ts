@@ -1,14 +1,14 @@
-import type { AxiosResponse } from 'axios';
-
-import { call } from '../../utils/call';
+import type { AxiosError } from 'axios';
+import { createStore, createEffect } from 'effector';
 
 export type ConfigType = {
   server: string;
 };
 
-export type ConfigPromise = Promise<AxiosResponse<ConfigType>>;
+const defaultStore: ConfigType = { server: '' };
 
-export function getConfig():ConfigPromise {
-  return call<ConfigType>('/config.json', 'GET');
-}
+const $config = createStore<ConfigType>(defaultStore);
 
+const getConfigFx = createEffect<void, ConfigType, AxiosError>();
+
+export { $config, getConfigFx };

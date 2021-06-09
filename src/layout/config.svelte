@@ -1,23 +1,22 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { AxiosResponse } from 'axios';
 
-  import { getConfig } from '../models/config';
-  import type { ConfigType } from '../models/config'
-  import { configChanged } from '../models/config/model';
+  import { getConfigFx } from '../models/config';
+  import type { ConfigType } from '../models/config';
 
-  let config: AxiosResponse<ConfigType>;
-  onMount(async () => {
-    config = await getConfig();
-    configChanged(config.data);
+  let config: Promise<ConfigType>;
+  onMount(() => {
+    config = getConfigFx();
   });
 </script>
 
-{#if config && config?.status === 200}
-  <slot />
-{:else}
-  <h1>Error during config loading</h1>
-{/if}
+{#await config}
+	<h1>Loading config</h1>
+{:then}
+	<slot />
+{:catch error}
+	<h1>{ error }</h1>
+{/await}
 
 
 
