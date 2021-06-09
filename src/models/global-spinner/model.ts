@@ -11,13 +11,11 @@ const defaultStore: LoaderType = {
 
 const $globalLoader = createStore<LoaderType>(defaultStore);
 
-const changeLoader = createEvent<LoaderType>('change loader');
-const hideLoader = createEvent<void>('hide loader');
+const toggleGlobalLoader = createEvent<LoaderType>('toggle global loader');
+const forceGlobalLoader = createEvent('force global loader');
 
 $globalLoader
-  .on(changeLoader, (_, payload) => ({ visible: true, ...payload }))
-  .reset(hideLoader);
+  .on(toggleGlobalLoader, (state) => ({ ...state, visible: !state.visible }))
+  .on(forceGlobalLoader, (_, payload) => payload);
 
-  $globalLoader.watch(console.log)
-
-export { $globalLoader, changeLoader, hideLoader };
+export { $globalLoader, toggleGlobalLoader, forceGlobalLoader };

@@ -11,7 +11,6 @@
   let globalLoaderSt:LoaderType = { visible: false };
 
   function globalLoaderStateWatcher(state: LoaderType) {
-    console.log('state :>> ', state);
     globalLoaderSt = state;
   }
 
