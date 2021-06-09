@@ -16,7 +16,6 @@ function isAuthorized() {
 const routes: RouteDefinition = {
   '/': MainPage,
   '/login': LoadingPage,
-  // should be PRIVATE
   '/fuqs': wrap({
     component: FuqsPage,
     conditions: [isAuthorized],

@@ -1,6 +1,6 @@
 import { createEffect, createStore } from 'effector';
 
-import { changeLoader, hideLoader } from '../global-loader/model';
+import { changeLoader, hideLoader } from '../global-spinner/model';
 import { login, logout, TokensType, CredentialsType } from './';
 
 const defaultStore: TokensType = {

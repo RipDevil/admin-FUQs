@@ -6,7 +6,7 @@ export type LoaderType = {
 };
 
 const defaultStore: LoaderType = {
-  visible: false,
+  visible: true,
 };
 
 const $globalLoader = createStore<LoaderType>(defaultStore);
@@ -17,5 +17,7 @@ const hideLoader = createEvent<void>('hide loader');
 $globalLoader
   .on(changeLoader, (_, payload) => ({ visible: true, ...payload }))
   .reset(hideLoader);
+
+  $globalLoader.watch(console.log)
 
 export { $globalLoader, changeLoader, hideLoader };
