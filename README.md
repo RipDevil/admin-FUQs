@@ -1,4 +1,4 @@
-# Admin FUQs
+# Admin FUQs :fire:
 
 This project is about hate messages web-service administration. Works together with the [Server-FUQs](https://github.com/RipDevil/server-FUQs). The other side is the [Client-FUQs](https://github.com/RipDevil/client-FUQs) which is used by _casuals_.
 
