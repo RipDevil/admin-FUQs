@@ -4,22 +4,19 @@
   import ContentLayout from './layout/index.svelte';
   import Spinner from './components/spinner.svelte';
 
-  import { $globalLoader as globalLoaderState } from './models/global-spinner/model';
-  import type { LoaderType } from './models/global-spinner/model';
+  import { $loader as loaderState } from './models/global-spinner/index';
+  import type { LoaderType } from './models/global-spinner/index';
   import routes from './pages/routes';
 
-  let globalLoaderSt:LoaderType = { visible: false };
+  let loader: LoaderType = loaderState.defaultState;
 
-  function globalLoaderStateWatcher(state: LoaderType) {
-    globalLoaderSt = state;
-  }
-
-  // @mna: subscribe or watch???
-  globalLoaderState.subscribe(globalLoaderStateWatcher);
+  loaderState.subscribe((newState) => {
+    loader = newState;
+  });
 </script>
 
-{#if globalLoaderSt.visible}
-  <Spinner>{globalLoaderSt.text ?? 'Loading...'}</Spinner>
+{#if loader.visible}
+  <Spinner>{loader.text ?? 'Loading...'}</Spinner>
 {:else}
   <ConfigLayout>
     <ContentLayout>
