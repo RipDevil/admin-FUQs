@@ -6,7 +6,7 @@ export type LoaderType = {
 };
 
 const defaultStore: LoaderType = {
-  visible: true,
+  visible: false,
 };
 
 const $globalLoader = createStore<LoaderType>(defaultStore);
