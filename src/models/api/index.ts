@@ -1,40 +1,33 @@
-import { Effect, attach, createEffect, Combinable } from 'effector';
+import type { AxiosError, AxiosResponse } from 'axios';
+import { createEffect, attach, createStore } from 'effector';
 
-import { $config } from '../config';
-import { $user } from '../user';
+import { call } from '../../utils/call';
 
-import type { ConfigType } from '../config';
-import type { TokensType } from '../user';
-import type { AxiosError } from 'axios';
+type CallType = { resource: string; data?: object; token?: string };
 
-function combine<Params, Done, Fail>(): Effect<Params, Done, Fail> {
-  return attach({
-    effect: createEffect<Params, Done, Fail>(),
-    source: {
-      config: $config,
-      user: $user,
-    },
-    mapParams: (params, source) => {
-      return { ...params, source };
-    },
-  });
-}
+type TokenType = {
+  token?: string;
+};
 
+type CredsType = {
+  name: string;
+  pass: string;
+};
 
+const $token = createStore<TokenType>({});
 
-type MockParamsType = {
-  id: number
-}
+const backendRequest = createEffect<CallType, AxiosResponse, AxiosError>();
 
-type MockType = {
-  name: string
-}
+backendRequest.use(({ resource, token, data }) => {
+  return call(`https://example.com/api${resource}`, 'GET', data, token);
+});
 
-type MockTypeExtended = {
-  ...args: MockType,
-  source: Combinable
-}
+const logoutRequest = attach({
+  effect: backendRequest,
+  source: $token,
+  mapParams: (credentials: CredsType, state: TokenType) => {
+    return { resource: '/logout', data: credentials, token: state.token };
+  },
+});
 
-const mockFx = createEffect<MockParamsType, MockType>()
-
-const mockExtendedFx = combine<MockType extends Combinable, MockType, AxiosError>()
+logoutRequest({ name: 'asd', pass: 'asd' });
