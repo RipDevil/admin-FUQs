@@ -1,11 +1,11 @@
+<script lang="ts">
+  import Layout from '../layout/index.svelte';
+</script>
+
 <svelte:head>
-	<title>Main Page</title>
+  <title>Main Page</title>
 </svelte:head>
 
-<p class="text-5xl tracking-wide py-2">
-  Main Page
-</p>
-
-<p>
-  Hi and welcome to the administration panel! In other words - Hello world of FUQs!
-</p>
+<Layout>
+  <p class="sm:text-5xl tracking-wide text-xl border-b-2">Main Page</p>
+</Layout>

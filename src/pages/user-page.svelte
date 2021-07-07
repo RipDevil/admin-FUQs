@@ -1,7 +1,11 @@
+<script lang="ts">
+  import Layout from '../layout/index.svelte';
+</script>
+
 <svelte:head>
-	<title>User Page</title>
+  <title>User Page</title>
 </svelte:head>
 
-<p class="text-5xl tracking-wide py-2">
-  Single User Page
-</p>
+<Layout>
+  <p class="sm:text-5xl tracking-wide text-xl border-b-2">Single User Page</p>
+</Layout>

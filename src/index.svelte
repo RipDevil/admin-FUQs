@@ -4,7 +4,10 @@
   import ContentLayout from './layout/index.svelte';
   import Spinner from './components/spinner.svelte';
 
-  import { $loader as loaderState } from './models/global-spinner/index';
+  import {
+    $loader as loaderState,
+    showLoader,
+  } from './models/global-spinner/index';
   import type { LoaderType } from './models/global-spinner/index';
   import routes from './pages/routes';
 
@@ -13,27 +16,30 @@
   loaderState.subscribe((newState) => {
     loader = newState;
   });
+
+  // showLoader()
 </script>
 
 {#if loader.visible}
   <Spinner>{loader.text ?? 'Loading...'}</Spinner>
 {:else}
   <ConfigLayout>
-    <ContentLayout>
-      <nav class="flex-row">
-        <a href={'/#/'}>Main</a>
-        <a href={'/#/login'}>Login</a>
-        <a href={'/#/fuqs'}>Fuqs</a>
-        <a href={'/#/fuq'}>Fuq</a>
-        <a href={'/#/users'}>Users</a>
-        <a href={'/#/user'}>User</a>
-      </nav>
-      <Router {routes}/>
-    </ContentLayout>
+      <Router {routes} />
   </ConfigLayout>
 {/if}
 
 <style global lang="postcss">
+  a {
+    color: inherit !important;
+  }
+
+  html,
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+  }
+
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
