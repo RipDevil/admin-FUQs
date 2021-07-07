@@ -5,7 +5,9 @@ module.exports = {
     purgeLayersByDefault: true,
     removeDeprecatedGapUtilities: true,
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
   purge: {
     content: ['./src/**/*.svelte'],
     enabled: true, // disable purge in dev
