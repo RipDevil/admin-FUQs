@@ -33,6 +33,10 @@
     color: inherit !important;
   }
 
+  a:hover {
+    text-decoration: none !important;
+  }
+
   html,
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
