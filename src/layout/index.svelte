@@ -15,7 +15,7 @@
   </div>
 </header>
 
-<div class="flex-col mt-10 px-2">
+<div class="flex flex-col mt-10 px-2">
   {#if title}
     <p class="sm:text-5xl tracking-wide text-xl border-b-2">{title}</p>
   {/if}
