@@ -24,7 +24,7 @@
   <Spinner>{loader.text ?? 'Loading...'}</Spinner>
 {:else}
   <ConfigLayout>
-      <Router {routes} />
+    <Router {routes} />
   </ConfigLayout>
 {/if}
 
