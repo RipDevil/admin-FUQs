@@ -17,7 +17,7 @@
 
 <div class="flex flex-col mt-10 px-2">
   {#if title}
-    <p class="sm:text-5xl tracking-wide text-xl border-b-2">{title}</p>
+    <p class="sm:text-5xl tracking-wide text-xl border-b-2 pb-2">{title}</p>
   {/if}
   <slot />
 </div>
