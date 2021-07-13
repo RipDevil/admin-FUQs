@@ -1,24 +1,24 @@
 import axios from 'axios';
-import { forward } from 'effector';
+import { forward, guard, sample } from 'effector';
 import {
   $config,
   $configInited,
+  $configIsNotInited,
   configDownloadFx,
   downloadConfig,
-  ConfigType
+  ConfigType,
 } from './model';
 
-forward({
-  from: downloadConfig,
-  to: configDownloadFx,
+guard({
+  clock: downloadConfig,
+  filter: $configIsNotInited,
+  target: configDownloadFx,
 });
 
 configDownloadFx.use(async () => {
-  const axiosResponse = await axios.get<ConfigType>('config.json');
+  const axiosResponse =  await axios.get<ConfigType>('config.json');
   return axiosResponse.data;
-})
+});
 
 $configInited.on(configDownloadFx.done, () => true);
-$config.on(configDownloadFx.done, (_state, payload) => payload.result)
-
-$config.watch(console.log)
+$config.on(configDownloadFx.done, (_state, payload) => payload.result);

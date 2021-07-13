@@ -1,2 +1,2 @@
-import './config/init';
 import './global-spinner/init';
+import './config/init';

@@ -1,6 +1,6 @@
 export {
-  $config,
+  $config as config,
   downloadConfig,
-  $configInited,
-  $configIsNotInited,
+  $configInited as configInited,
+  $configIsNotInited as configNotInited,
 } from './model';

@@ -1,11 +1,12 @@
 import type { AxiosError } from "axios";
 import { createDomain } from "effector";
+import { applyDebug } from "../../utils/debug";
 
 export type ConfigType = {
   server: string
 }
 
-const configDomain = createDomain();
+const configDomain = applyDebug(createDomain(), 'Config');
 
 const $config = configDomain.createStore<ConfigType>({ server: '/' });
 

@@ -2,21 +2,20 @@
   import { onMount } from 'svelte';
   import {
     downloadConfig,
-    $configInited as configInited,
-    $configIsNotInited as configNotInited,
+    configInited,
+    configNotInited,
   } from '../models/config';
 
   onMount(() => {
+    console.log('Mount!');
     downloadConfig();
   });
 </script>
 
-<h1>Hi!</h1>
-
-{#if configInited}
+{#if $configInited}
   <slot />
 {/if}
 
-{#if configNotInited}
+{#if $configNotInited}
   Config is loading!
 {/if}

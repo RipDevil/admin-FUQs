@@ -1,3 +1,3 @@
-<div class="bg-white absolute z-50 flex-col justify-center content-center inset-x-2/4	 inset-y-2/4">
+<div class="bg-white absolute z-50 flex flex-col justify-center items-center w-full h-full">
   <h1><slot /></h1>
 </div>
