@@ -360,6 +360,10 @@
 
     console.log('params :>> ', params);
   };
+
+  const handleClick = () => {
+    
+  }
 </script>
 
 <svelte:head>
@@ -416,7 +420,7 @@
 
     <tbody>
       {#each mockData as { title, text, status, likes, influencers }}
-        <tr class={`hover:bg-gray-100 border-gray-100 border-t-2 border-b-2 cursor-pointer`}>
+        <tr on:click={handleClick} class={`hover:bg-gray-100 border-gray-100 border-t-2 border-b-2 cursor-pointer`}>
           <td class="py-5 px-1"><span class="cursor-text">{title}</span></td>
           <td class="py-5 px-1 overflow-ellipsis overflow-hidden whitespace-nowrap">
             <span class="cursor-text">{text}</span>
