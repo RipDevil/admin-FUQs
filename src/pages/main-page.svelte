@@ -1,12 +1,5 @@
 <script lang="ts">
-import { onMount } from 'svelte';
-
   import Layout from '../layout/index.svelte';
-import { showLoader } from '../models/global-spinner';
-
-  onMount(() => {
-    showLoader("Long loader text")
-  })
 </script>
 
 <svelte:head>
