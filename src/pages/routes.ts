@@ -5,32 +5,41 @@ import FuqsPage from './fuqs-page.svelte';
 import FuqPage from './fuq-page.svelte';
 import UsersPage from './users-page.svelte';
 import UserPage from './user-page.svelte';
-import LoadingPage from './login-page.svelte';
+import LoginPage from './login-page.svelte';
 import MainPage from './main-page.svelte';
+import { hideStatus } from '../models/global-status';
 
-// TODO: delete this mock
-function isAuthorized() {
+import { authorized } from '../models/auth';
+
+const hideStatusPrecondition = () => {
+  hideStatus();
   return true;
-}
+};
 
 const routes: RouteDefinition = {
-  '/': MainPage,
-  '/login': LoadingPage,
+  '/': wrap({
+    component: MainPage,
+    conditions: [() => authorized.getState(), hideStatusPrecondition],
+  }),
+  '/login': wrap({
+    component: LoginPage,
+    conditions: [hideStatusPrecondition],
+  }),
   '/fuqs': wrap({
     component: FuqsPage,
-    conditions: [isAuthorized],
+    conditions: [() => authorized.getState(), hideStatusPrecondition],
   }),
   '/fuq': wrap({
     component: FuqPage,
-    conditions: [isAuthorized],
+    conditions: [() => authorized.getState(), hideStatusPrecondition],
   }),
   '/users': wrap({
     component: UsersPage,
-    conditions: [isAuthorized],
+    conditions: [() => authorized.getState(), hideStatusPrecondition],
   }),
   '/user': wrap({
     component: UserPage,
-    conditions: [isAuthorized],
+    conditions: [() => authorized.getState(), hideStatusPrecondition],
   }),
 };
 

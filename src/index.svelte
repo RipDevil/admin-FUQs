@@ -2,16 +2,15 @@
   import Router from 'svelte-spa-router';
   import ConfigLayout from './layout/config.svelte';
   import Spinner from './components/spinner.svelte';
-  import { loaderVisible, loaderText, showLoader } from './models/global-spinner';
+  import { loaderVisible, loaderText } from './models/global-spinner';
   import routes from './pages/routes';
 </script>
 
 <ConfigLayout>
   {#if $loaderVisible}
     <Spinner>{$loaderText ?? 'Loading...'}</Spinner>
-  {:else}
-    <Router {routes} />
   {/if}
+  <Router {routes} />
 </ConfigLayout>
 
 <style global lang="postcss">
