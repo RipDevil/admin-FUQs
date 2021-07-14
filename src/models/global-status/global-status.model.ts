@@ -23,4 +23,6 @@ const $gstatusInvisible = $gstatusVisible.map((state) => !state);
 const showStatus = gstatus.createEvent<GStatusParams>();
 const hideStatus = gstatus.createEvent();
 
-export { $gstatusInvisible, $gstatusText, $gstatusVisible, $gstatusType, showStatus, hideStatus };
+const hideStatusTimeoutFx = gstatus.createEffect<any, any, any>();
+
+export { $gstatusInvisible, $gstatusText, $gstatusVisible, $gstatusType, showStatus, hideStatus, hideStatusTimeoutFx };

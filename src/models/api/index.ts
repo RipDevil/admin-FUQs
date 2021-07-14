@@ -1,4 +1,4 @@
-import { attach, createDomain, Effect, sample, Store } from 'effector';
+import { attach, createDomain, Effect, Store } from 'effector';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 import { call, methodTypes } from '../../utils/call';
