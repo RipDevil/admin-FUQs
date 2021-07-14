@@ -1,6 +1,11 @@
 import { createDomain } from "effector";
 import { applyDebug } from "../../utils/debug";
 
+export type TokenPair = {
+  token: string,
+  refreshToken: string
+};
+
 const auth = applyDebug(createDomain(), 'Auth');
 
 const $token = auth.createStore('');

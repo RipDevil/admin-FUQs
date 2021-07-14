@@ -1,1 +1,1 @@
-export { $name, $password, loginChanged, passwordChanged, loginStarted } from './login-form.model';
+export { $login, $password, loginChanged, passwordChanged, loginStarted } from './login-form.model';

@@ -1,32 +1,29 @@
-import axios from 'axios';
 import { combine, forward, sample } from 'effector';
 import {
-  $name,
+  $login,
   $password,
   loginChanged,
   loginFx,
   loginStarted,
   passwordChanged,
-  resetForm
+  resetForm,
 } from './login-form.model';
 
-$name.on(loginChanged, (_oldLogin, newLogin) => newLogin);
+$login.on(loginChanged, (_oldLogin, newLogin) => newLogin).reset(resetForm);
 
-$password.on(passwordChanged, (_oldPassword, newPassword) => newPassword);
+$password
+  .on(passwordChanged, (_oldPassword, newPassword) => newPassword)
+  .reset(resetForm);
 
-const $login = combine($name, $password, (name, password) => ({
-  name,
+const $formData = combine($login, $password, (login, password) => ({
+  login,
   password,
 }));
 
-$login.reset(resetForm);
-
-loginFx.use(async (params) => {
-  return await axios.post('/auth', { login: params.name, password: params.password });
-});
+$formData.reset(resetForm);
 
 sample({
-  source: $login,
+  source: $formData,
   target: loginFx,
   clock: loginStarted,
 });

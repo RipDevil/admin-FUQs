@@ -1,5 +1,5 @@
 import { attach, createDomain, Effect, Store } from 'effector';
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { AxiosError } from 'axios';
 
 import { call, methodTypes } from '../../utils/call';
 import { config } from '../config';
@@ -16,7 +16,7 @@ export type ChainedCalls = {
 
 const api = createDomain();
 
-const makeRequestFx = api.createEffect<ChainedCalls, AxiosResponse, AxiosError>(
+const makeRequestFx = api.createEffect<ChainedCalls, any, AxiosError>(
   async (params) => {
     const res = await call<any>(
       params.server + params.uri,
@@ -31,19 +31,19 @@ const makeRequestFx = api.createEffect<ChainedCalls, AxiosResponse, AxiosError>(
 const applyTokenFx = attach<
   ChainedCalls,
   Store<string>,
-  Effect<ChainedCalls, AxiosResponse, AxiosError>
+  Effect<ChainedCalls, any, AxiosError>
 >({
   effect: makeRequestFx,
   source: token,
-  mapParams: ({ data, uri, server, method }, states) => {
-    return { data, uri, server, method, token: states };
+  mapParams: ({ data, uri, server, method }, token) => {
+    return { data, uri, server, method, token };
   },
 });
 
 const applyConfigFx = attach<
   ChainedCalls,
   Store<ConfigType>,
-  Effect<ChainedCalls, AxiosResponse, AxiosError>
+  Effect<ChainedCalls, any, AxiosError>
 >({
   effect: applyTokenFx,
   source: config,
@@ -53,7 +53,7 @@ const applyConfigFx = attach<
 });
 
 const createRequest = <ResponseType>(uri: string, method: methodTypes) =>
-  attach<object, Effect<ChainedCalls, AxiosResponse<ResponseType>, AxiosError>>(
+  attach<object, Effect<ChainedCalls, ResponseType, AxiosError>>(
     {
       effect: applyConfigFx,
       mapParams: (data) => {

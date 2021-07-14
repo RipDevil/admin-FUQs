@@ -1,9 +1,9 @@
-import type { AxiosError, AxiosResponse } from 'axios';
-import { combine, createDomain } from 'effector';
+import { createDomain } from 'effector';
 import { applyDebug } from '../../utils/debug';
+import { createRequest } from '../api';
 
 export type LoginData = {
-  name: string;
+  login: string;
   password: string;
 };
 
@@ -14,7 +14,7 @@ export type LoginResData = {
 
 const loginForm = applyDebug(createDomain(), 'login-form');
 
-const $name = loginForm.createStore('');
+const $login = loginForm.createStore('');
 const $password = loginForm.createStore('');
 
 // const $nameError = loginForm.createStore('');
@@ -26,20 +26,14 @@ const passwordChanged = loginForm.createEvent<string>();
 const loginStarted = loginForm.createEvent();
 const resetForm = loginForm.createEvent();
 
-const $login = combine($name, $password, (name, password) => ({
-  name,
-  password
-}));
-
-const loginFx = loginForm.createEffect<LoginData, AxiosResponse<LoginResData>, AxiosError>();
+const loginFx = createRequest<LoginResData>('/auth/login', 'POST');
 
 export {
-  $name,
+  $login,
   $password,
   loginChanged,
   loginFx,
   loginStarted,
   passwordChanged,
-  resetForm,
-  $login
+  resetForm
 };

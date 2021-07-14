@@ -1,5 +1,5 @@
 <script lang="ts">
-import { loginChanged, loginStarted, passwordChanged } from "../models/login-form";
+import { loginChanged, loginStarted, passwordChanged, $login as login, $password as password  } from "../models/login-form";
 
 
   const loginButonHandleSubmit = () => {
@@ -28,6 +28,7 @@ import { loginChanged, loginStarted, passwordChanged } from "../models/login-for
 
     <input
       on:input={onNameChange}
+      bind:value={$login}
       placeholder="Name"
       type="text"
       class="text-lg py-1 px-3 w-full rounded-sm border-gray-200 focus:border-0"
@@ -35,6 +36,7 @@ import { loginChanged, loginStarted, passwordChanged } from "../models/login-for
 
     <input
       on:input={onPasswordChange}
+      bind:value={$password}
       placeholder="Password"
       id="password"
       type="password"

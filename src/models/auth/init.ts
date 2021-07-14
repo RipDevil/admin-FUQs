@@ -5,19 +5,17 @@ import { $authorized, $refreshToken, $token } from './auth.model';
 $authorized.on(loginFx.done, () => true);
 
 sample({
-  source: loginFx.doneData,
   clock: loginFx.done,
   fn: (sourceData) => {
-    return sourceData.data.token;
+    return sourceData.result.token;
   },
   target: $token,
 });
 
 sample({
-  source: loginFx.doneData,
   clock: loginFx.done,
   fn: (sourceData) => {
-    return sourceData.data.refreshToken;
+    return sourceData.result.refreshToken;
   },
   target: $refreshToken,
 });
