@@ -1,4 +1,4 @@
-import type { RouteDefinition } from 'svelte-spa-router';
+import { push, RouteDefinition } from 'svelte-spa-router';
 import wrap from 'svelte-spa-router/wrap';
 
 import FuqsPage from './fuqs-page.svelte';
@@ -16,10 +16,15 @@ const hideStatusPrecondition = () => {
   return true;
 };
 
+const redirectIfNotAuthorized = () => {
+  !authorized.getState() && push('/login');
+  return true;
+}
+
 const routes: RouteDefinition = {
   '/': wrap({
     component: MainPage,
-    conditions: [() => authorized.getState(), hideStatusPrecondition],
+    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
   }),
   '/login': wrap({
     component: LoginPage,
@@ -27,19 +32,19 @@ const routes: RouteDefinition = {
   }),
   '/fuqs': wrap({
     component: FuqsPage,
-    conditions: [() => authorized.getState(), hideStatusPrecondition],
+    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
   }),
   '/fuq': wrap({
     component: FuqPage,
-    conditions: [() => authorized.getState(), hideStatusPrecondition],
+    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
   }),
   '/users': wrap({
     component: UsersPage,
-    conditions: [() => authorized.getState(), hideStatusPrecondition],
+    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
   }),
   '/user': wrap({
     component: UserPage,
-    conditions: [() => authorized.getState(), hideStatusPrecondition],
+    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
   }),
 };
 

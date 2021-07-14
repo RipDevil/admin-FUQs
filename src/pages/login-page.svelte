@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { push } from 'svelte-spa-router';
   import {
     loginChanged,
     loginStarted,
@@ -6,6 +7,9 @@
     $login as login,
     $password as password,
   } from '../models/login-form';
+
+  import { authorized } from '../models/auth';
+
   import GStatus from '../components/global-status.svelte';
 
   const loginButonHandleSubmit = () => {
@@ -23,6 +27,12 @@
   ) => {
     passwordChanged(event.currentTarget.value);
   };
+
+  $: {
+    if ($authorized) {
+      push('/');
+    }
+  }
 </script>
 
 <svelte:head>
