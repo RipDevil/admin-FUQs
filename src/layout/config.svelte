@@ -7,7 +7,6 @@
   } from '../models/config';
 
   onMount(() => {
-    console.log('Mount!');
     downloadConfig();
   });
 </script>
