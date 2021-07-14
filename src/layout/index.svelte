@@ -1,4 +1,6 @@
 <script lang="ts">
+  import GStatus from '../components/global-status.svelte';
+
   export let title: string | undefined = undefined;
 </script>
 
@@ -16,6 +18,8 @@
 </header>
 
 <div class="flex flex-col mt-10 px-2">
+  <GStatus />
+
   {#if title}
     <p class="sm:text-5xl tracking-wide text-xl border-b-2 pb-2">{title}</p>
   {/if}

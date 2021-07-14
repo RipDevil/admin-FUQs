@@ -11,6 +11,9 @@ import {
 
 import { showLoader, hideLoader } from '../global-spinner';
 
+import { showStatus, hideStatus, GStatusType } from '../global-status';
+import type { GStatusParams } from '../global-status';
+
 $login.on(loginChanged, (_oldLogin, newLogin) => newLogin).reset(resetForm);
 
 $password
@@ -37,3 +40,14 @@ sample({ clock: loginStarted, fn: () => 'Logging in', target: showLoader });
 forward({ from: loginFx.done, to: hideLoader });
 
 forward({ from: loginFx.fail, to: hideLoader });
+
+sample({
+  clock: loginFx.done,
+  fn: ():GStatusParams => {
+    return {
+      text: "You have been logged in!",
+      type: GStatusType.SUCCESS
+    };
+  },
+  target: showStatus,
+});

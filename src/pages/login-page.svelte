@@ -1,18 +1,28 @@
 <script lang="ts">
-import { loginChanged, loginStarted, passwordChanged, $login as login, $password as password  } from "../models/login-form";
-
+  import {
+    loginChanged,
+    loginStarted,
+    passwordChanged,
+    $login as login,
+    $password as password,
+  } from '../models/login-form';
+  import GStatus from '../components/global-status.svelte';
 
   const loginButonHandleSubmit = () => {
     loginStarted();
   };
 
-  const onNameChange = (event:Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
+  const onNameChange = (
+    event: Event & { currentTarget: EventTarget & HTMLInputElement }
+  ) => {
     loginChanged(event.currentTarget.value);
-  }
+  };
 
-  const onPasswordChange = (event:Event & { currentTarget: EventTarget & HTMLInputElement; }) => {
+  const onPasswordChange = (
+    event: Event & { currentTarget: EventTarget & HTMLInputElement }
+  ) => {
     passwordChanged(event.currentTarget.value);
-  }
+  };
 </script>
 
 <svelte:head>
@@ -25,6 +35,10 @@ import { loginChanged, loginStarted, passwordChanged, $login as login, $password
     class={`transition-all duration-300 px-2 py-4 flex flex-col justify-center items-center w-2/4 rounded-md bg-gray-50 shadow-xl space-y-2`}
   >
     <div class="text-3xl tracking-widest font-bold">Login form</div>
+
+    <GStatus
+      customClass={'w-full py-1 px-3v text-xl flex flex-row justify-center items-center'}
+    />
 
     <input
       on:input={onNameChange}
