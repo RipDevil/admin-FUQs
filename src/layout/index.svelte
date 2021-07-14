@@ -9,7 +9,6 @@
 >
     <div class="space-x-3">
         <a href={'/#/'}>Main</a>
-        <a href={'/#/login'}>Login</a>
     </div>
     <div class="space-x-3">
         <a href={'/#/fuqs'}>Fuqs</a>
