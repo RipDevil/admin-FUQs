@@ -2,9 +2,10 @@ import { attach, createDomain, Effect, sample, Store } from 'effector';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 import { call, methodTypes } from '../../utils/call';
-import type { ConfigType } from '../config/model';
 import { config } from '../config';
 import { token } from '../auth';
+
+import type { ConfigType } from '../config/model';
 
 export type ChainedCalls = {
     data: object;
