@@ -51,3 +51,14 @@ sample({
   },
   target: showStatus,
 });
+
+sample({
+  clock: loginFx.fail,
+  fn: (clockData):GStatusParams => {
+    return {
+      text: clockData.error.message,
+      type: GStatusType.ERROR
+    };
+  },
+  target: showStatus,
+});
