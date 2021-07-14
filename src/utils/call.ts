@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { preparePostParams } from './post-params';
 
-type methodTypes = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export type methodTypes = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 /**
  * Makes a call
@@ -31,22 +31,5 @@ export function call<RType>(url: string, method: methodTypes, params?: object, t
       },
     };
   }
-
   return axios.request<RType>(config);
-}
-
-/**
- * Logs all fetches if it's a dev env and if there is an `api-debug` field in the localStorage
- * @param url
- * @param method
- * @param config
- * @param data
- */
-function logCall(url: string, method: methodTypes, config: object, data: object) {
-  if (localStorage.getItem('api-debug')) {
-    console.groupCollapsed(`API CALL >> ${method} ${url}`);
-    console.log('request:', config);
-    console.log('data:', data);
-    console.groupEnd();
-  }
 }

@@ -6,6 +6,13 @@ export type ConfigType = {
   server: string
 }
 
+export type RequestType = {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  token?: string,
+  params: object,
+  server: string
+};
+
 const configDomain = applyDebug(createDomain(), 'Config');
 
 const $config = configDomain.createStore<ConfigType>({ server: '/' });
@@ -24,5 +31,5 @@ export {
   $configInited,
   $configIsNotInited,
   downloadConfig,
-  configDownloadFx
+  configDownloadFx,
 };

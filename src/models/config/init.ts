@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { forward, guard, sample } from 'effector';
+import { guard } from 'effector';
 import {
   $config,
   $configInited,
@@ -16,7 +16,7 @@ guard({
 });
 
 configDownloadFx.use(async () => {
-  const axiosResponse =  await axios.get<ConfigType>('config.json');
+  const axiosResponse = await axios.get<ConfigType>('config.json');
   return axiosResponse.data;
 });
 

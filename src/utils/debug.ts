@@ -1,6 +1,6 @@
 import type { Domain } from 'effector';
 
-const isDebug = true; //!!localStorage.get('fuq-admin-debug');
+const isDebug = false;
 
 export const applyDebug = (domain: Domain, name: string): Domain => {
   if (isDebug) {
