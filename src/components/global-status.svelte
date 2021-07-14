@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  export let customClass: string = 'w-full py-1 px-3';
+  export let customClass: string = 'py-1 px-10 -mx-5';
 
   import {
     statusText,

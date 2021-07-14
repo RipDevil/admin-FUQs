@@ -17,7 +17,7 @@
   </div>
 </header>
 
-<div class="flex flex-col mt-10 px-2">
+<div class="flex flex-col mt-10 px-2 py-3">
   <GStatus />
 
   {#if title}
