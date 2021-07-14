@@ -12,40 +12,40 @@ import { hideStatus } from '../models/global-status';
 import { authorized } from '../models/auth';
 
 const hideStatusPrecondition = () => {
-  hideStatus();
-  return true;
+    hideStatus();
+    return true;
 };
 
 const redirectIfNotAuthorized = () => {
-  !authorized.getState() && push('/login');
-  return true;
-}
+    !authorized.getState() && push('/login');
+    return true;
+};
 
 const routes: RouteDefinition = {
-  '/': wrap({
-    component: MainPage,
-    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
-  }),
-  '/login': wrap({
-    component: LoginPage,
-    conditions: [hideStatusPrecondition],
-  }),
-  '/fuqs': wrap({
-    component: FuqsPage,
-    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
-  }),
-  '/fuq': wrap({
-    component: FuqPage,
-    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
-  }),
-  '/users': wrap({
-    component: UsersPage,
-    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
-  }),
-  '/user': wrap({
-    component: UserPage,
-    conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
-  }),
+    '/': wrap({
+        component: MainPage,
+        conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
+    }),
+    '/login': wrap({
+        component: LoginPage,
+        conditions: [hideStatusPrecondition],
+    }),
+    '/fuqs': wrap({
+        component: FuqsPage,
+        conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
+    }),
+    '/fuq': wrap({
+        component: FuqPage,
+        conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
+    }),
+    '/users': wrap({
+        component: UsersPage,
+        conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
+    }),
+    '/user': wrap({
+        component: UserPage,
+        conditions: [redirectIfNotAuthorized, hideStatusPrecondition],
+    }),
 };
 
 export default routes;

@@ -1,10 +1,5 @@
 import { forward } from 'effector';
-import {
-  $loaderText,
-  $loaderVisible,
-  hideLoader,
-  showLoader,
-} from './spinner.model';
+import { $loaderText, $loaderVisible, hideLoader, showLoader } from './spinner.model';
 
 $loaderVisible.on(showLoader, () => true).on(hideLoader, () => false);
 

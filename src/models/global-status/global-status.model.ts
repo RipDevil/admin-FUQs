@@ -2,15 +2,15 @@ import { createDomain } from 'effector';
 import { applyDebug } from '../../utils/debug';
 
 export enum GStatusType {
-  SUCCESS,
-  WARNING,
-  ERROR,
-  NOTE,
+    SUCCESS,
+    WARNING,
+    ERROR,
+    NOTE,
 }
 
 export type GStatusParams = {
-  type: GStatusType;
-  text: string;
+    type: GStatusType;
+    text: string;
 };
 
 const gstatus = applyDebug(createDomain(), 'Global status');
@@ -23,11 +23,4 @@ const $gstatusInvisible = $gstatusVisible.map((state) => !state);
 const showStatus = gstatus.createEvent<GStatusParams>();
 const hideStatus = gstatus.createEvent();
 
-export {
-  $gstatusInvisible,
-  $gstatusText,
-  $gstatusVisible,
-  $gstatusType,
-  showStatus,
-  hideStatus,
-};
+export { $gstatusInvisible, $gstatusText, $gstatusVisible, $gstatusType, showStatus, hideStatus };

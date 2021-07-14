@@ -1,20 +1,16 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import {
-    downloadConfig,
-    configInited,
-    configNotInited,
-  } from '../models/config';
+    import { onMount } from 'svelte';
+    import { downloadConfig, configInited, configNotInited } from '../models/config';
 
-  onMount(() => {
-    downloadConfig();
-  });
+    onMount(() => {
+        downloadConfig();
+    });
 </script>
 
 {#if $configInited}
-  <slot />
+    <slot />
 {/if}
 
 {#if $configNotInited}
-  Config is loading!
+    Config is loading!
 {/if}

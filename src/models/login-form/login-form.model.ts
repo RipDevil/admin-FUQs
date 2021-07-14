@@ -3,14 +3,14 @@ import { applyDebug } from '../../utils/debug';
 import { createRequest } from '../api';
 
 export type LoginData = {
-  login: string;
-  password: string;
+    login: string;
+    password: string;
 };
 
 export type LoginResData = {
-  token: string,
-  refreshToken: string
-}
+    token: string;
+    refreshToken: string;
+};
 
 const loginForm = applyDebug(createDomain(), 'login-form');
 
@@ -28,12 +28,4 @@ const resetForm = loginForm.createEvent();
 
 const loginFx = createRequest<LoginResData>('/auth/login', 'POST');
 
-export {
-  $login,
-  $password,
-  loginChanged,
-  loginFx,
-  loginStarted,
-  passwordChanged,
-  resetForm
-};
+export { $login, $password, loginChanged, loginFx, loginStarted, passwordChanged, resetForm };

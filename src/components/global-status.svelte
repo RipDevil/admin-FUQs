@@ -1,39 +1,32 @@
 <script lang="ts">
+    export let customClass: string = 'py-1 px-10 -mx-5';
 
-  export let customClass: string = 'py-1 px-10 -mx-5';
+    import { statusText, statusVisible, statusType } from '../models/global-status';
+    import { getStatusClass } from '../utils/gstatus-class';
 
-  import {
-    statusText,
-    statusVisible,
-    statusType,
-  } from '../models/global-status';
-  import { getStatusClass } from '../utils/gstatus-class';
-
-  $: statusClass = getStatusClass($statusType);
+    $: statusClass = getStatusClass($statusType);
 </script>
 
 {#if $statusVisible}
-  <div
-    class={`${statusClass} ${customClass}`}>
-    {$statusText ?? 'Something has happened!'}
-  </div>
+    <div class={`${statusClass} ${customClass}`}>
+        {$statusText ?? 'Something has happened!'}
+    </div>
 {/if}
 
 <style lang="postcss">
-  .error {
-    @apply text-white bg-red-400;
-  }
+    .error {
+        @apply text-white bg-red-400;
+    }
 
-  .warning {
-    @apply text-white bg-yellow-400;
-  }
+    .warning {
+        @apply text-white bg-yellow-400;
+    }
 
-  .success {
-    @apply text-white bg-green-500;
-  }
+    .success {
+        @apply text-white bg-green-500;
+    }
 
-  .note {
-    @apply text-black bg-transparent;
-  }
-
+    .note {
+        @apply text-black bg-transparent;
+    }
 </style>
