@@ -28,7 +28,7 @@ import { loginChanged, loginStarted, passwordChanged, $login as login, $password
 
     <input
       on:input={onNameChange}
-      bind:value={$login}
+      value={$login}
       placeholder="Name"
       type="text"
       class="text-lg py-1 px-3 w-full rounded-sm border-gray-200 focus:border-0"
@@ -36,7 +36,7 @@ import { loginChanged, loginStarted, passwordChanged, $login as login, $password
 
     <input
       on:input={onPasswordChange}
-      bind:value={$password}
+      value={$password}
       placeholder="Password"
       id="password"
       type="password"
