@@ -11,5 +11,19 @@ const auth = applyDebug(createDomain(), 'Auth');
 const $token = auth.createStore('');
 const $refreshToken = auth.createStore('');
 const $authorized = auth.createStore(false);
+const $localStorageChecked = auth.createStore(false);
 
-export { $token, $refreshToken, $authorized };
+const checkLocaleStorage = auth.createEvent();
+
+const saveTokensToLocalStorageFx = auth.createEffect<TokenPair, any, Error>();
+const getTokensFromLocalStorageFx = auth.createEffect<void, TokenPair, Error>();
+
+export {
+    $token,
+    $refreshToken,
+    $authorized,
+    saveTokensToLocalStorageFx,
+    $localStorageChecked,
+    checkLocaleStorage,
+    getTokensFromLocalStorageFx,
+};

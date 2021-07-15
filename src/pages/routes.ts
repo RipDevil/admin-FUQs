@@ -9,15 +9,18 @@ import LoginPage from './login-page.svelte';
 import MainPage from './main-page.svelte';
 import { hideStatus } from '../models/global-status';
 
-import { authorized } from '../models/auth';
+import { $authorized, $localStorageChecked, checkLocaleStorage } from '../models/auth/auth.model';
 
 const hideStatusPrecondition = () => {
-    hideStatus();
+    hideStatus(); // is needed anymore?
     return true;
 };
 
 const redirectIfNotAuthorized = () => {
-    !authorized.getState() && push('/login');
+    if (!$authorized.getState()) {
+        !$localStorageChecked.getState() && checkLocaleStorage();
+        push('/login');
+    }
     return true;
 };
 

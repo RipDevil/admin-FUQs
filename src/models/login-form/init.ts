@@ -3,7 +3,7 @@ import { $login, $password, loginChanged, loginFx, loginStarted, passwordChanged
 
 import { showLoader, hideLoader } from '../global-spinner';
 
-import { showStatus, hideStatus, GStatusType } from '../global-status';
+import { showStatus, GStatusType } from '../global-status';
 import type { GStatusParams } from '../global-status';
 
 $login.on(loginChanged, (_oldLogin, newLogin) => newLogin).reset(resetForm);
