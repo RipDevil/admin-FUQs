@@ -1,11 +1,14 @@
-import { attach, createDomain, Effect, Store } from 'effector';
+import { attach, combine, createDomain, Effect, guard, sample, split, Store } from 'effector';
 import type { AxiosError, AxiosResponse } from 'axios';
+import jwtDecode from 'jwt-decode';
+import { fromUnixTime, isPast } from 'date-fns';
 
 import { call, methodTypes } from '../../utils/call';
 import { config } from '../config';
-import { token } from '../auth';
 
 import type { ConfigType } from '../config/model';
+
+import { $refreshToken, $token, TokenPair, saveTokensToLocalStorageFx } from '../auth/auth.model';
 
 export type ChainedCalls = {
     data: object;
@@ -13,37 +16,80 @@ export type ChainedCalls = {
     method: methodTypes;
     server?: string;
     token?: string;
+    refreshToken?: string;
 };
 
 const api = createDomain();
 
 const makeRequestFx = api.createEffect<ChainedCalls, AxiosResponse, AxiosError>(async (params) => {
-    const res = await call<any>(params.server + params.uri, params.method, params.data, params.token);
+    const paramsCopy = params;
+    if (params?.token) {
+        const decodedToken: { exp: number } = jwtDecode(params.token);
+        const expirationDate = fromUnixTime(decodedToken.exp);
+
+        if (true || isPast(expirationDate)) {
+            const newTokens = await call<TokenPair>(params.server + '/auth/refresh', 'POST', {
+                refreshToken: params.refreshToken,
+            });
+
+            paramsCopy.token = newTokens.data.token;
+            paramsCopy.refreshToken = newTokens.data.refreshToken;
+        }
+    }
+
+    const res = await call<any>(
+        paramsCopy.server + paramsCopy.uri,
+        paramsCopy.method,
+        paramsCopy.data,
+        paramsCopy.token
+    );
+
+    console.count('make request');
     return res.data;
 });
 
-const applyTokenFx = attach<ChainedCalls, Store<string>, Effect<ChainedCalls, any, AxiosError>>({
-    effect: makeRequestFx,
-    source: token,
-    mapParams: ({ data, uri, server, method }, token) => {
-        return { data, uri, server, method, token };
-    },
-});
+const applyData = attach<ChainedCalls, Store<{ token: string; server: string }>, Effect<ChainedCalls, any, AxiosError>>(
+    {
+        effect: makeRequestFx,
+        source: combine($token, $refreshToken, config, (token = '', refreshToken = '', config) => ({
+            token,
+            refreshToken,
+            server: config?.server || '',
+        })),
+        mapParams: ({ data, uri, method }, states) => {
+            return { data, uri, method, ...states };
+        },
+    }
+);
 
-const applyConfigFx = attach<ChainedCalls, Store<ConfigType>, Effect<ChainedCalls, any, AxiosError>>({
-    effect: applyTokenFx,
-    source: config,
-    mapParams: ({ data, uri, method }, states) => {
-        return { data, uri, method, server: states.server };
-    },
-});
-
-const createRequest = <ResponseType>(uri: string, method: methodTypes) =>
-    attach<object, Effect<ChainedCalls, ResponseType, AxiosError>>({
-        effect: applyConfigFx,
+export const createRequest = <ResponseType>(uri: string, method: methodTypes) => {
+    return attach<object, Effect<ChainedCalls, ResponseType, AxiosError>>({
+        effect: applyData,
         mapParams: (data) => {
             return { data, uri, method };
         },
     });
+};
 
-export { createRequest };
+sample({
+    clock: makeRequestFx.done,
+    fn: (clockData) => clockData.params.token,
+    target: $token,
+});
+
+sample({
+    clock: makeRequestFx.done,
+    fn: (clockData) => clockData.params.refreshToken,
+    target: $refreshToken,
+});
+
+sample({
+    clock: makeRequestFx.done,
+    fn: (clockData) => ({ token: clockData.params.token, refreshToken: clockData.params.refreshToken }),
+    target: saveTokensToLocalStorageFx,
+});
+
+// @mna: I leave it here to emphasize the issue
+saveTokensToLocalStorageFx.done.watch((payload) => {
+    console.log('saveTokensToLocalStorageFx done ', payload);
+});
