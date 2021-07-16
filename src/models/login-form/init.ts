@@ -27,9 +27,7 @@ forward({ from: loginFx, to: resetForm });
 
 sample({ clock: loginStarted, fn: () => 'Logging in', target: showLoader });
 
-forward({ from: loginFx.done, to: hideLoader });
-
-forward({ from: loginFx.fail, to: hideLoader });
+forward({ from: loginFx.finally, to: hideLoader });
 
 sample({
     clock: loginFx.done,
