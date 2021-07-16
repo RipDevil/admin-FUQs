@@ -1,12 +1,10 @@
-import { attach, combine, createDomain, Effect, guard, sample, split, Store } from 'effector';
+import { attach, combine, createDomain, Effect, sample, Store } from 'effector';
 import type { AxiosError, AxiosResponse } from 'axios';
 import jwtDecode from 'jwt-decode';
 import { fromUnixTime, isPast } from 'date-fns';
 
 import { call, methodTypes } from '../../utils/call';
 import { config } from '../config';
-
-import type { ConfigType } from '../config/model';
 
 import { $refreshToken, $token, TokenPair, saveTokensToLocalStorageFx } from '../auth/auth.model';
 
@@ -44,7 +42,6 @@ const makeRequestFx = api.createEffect<ChainedCalls, AxiosResponse, AxiosError>(
         paramsCopy.token
     );
 
-    console.count('make request');
     return res.data;
 });
 
