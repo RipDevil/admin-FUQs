@@ -18,7 +18,6 @@ const hideStatusPrecondition = () => {
 
 const redirectIfNotAuthorized = () => {
     if (!$authorized.getState()) {
-        !$localStorageChecked.getState() && checkLocaleStorage();
         push('/login');
     }
     return true;

@@ -1,6 +1,6 @@
 import type { Domain } from 'effector';
 
-const isDebug = true;
+const isDebug = false;
 const verbose = 1;
 
 export const applyDebug = (domain: Domain, name: string): Domain => {

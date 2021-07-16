@@ -4,6 +4,9 @@
     import Spinner from './components/spinner.svelte';
     import { loaderVisible, loaderText } from './models/global-spinner';
     import routes from './pages/routes';
+    import { $localStorageChecked as localStorageChecked, checkLocaleStorage } from './models/auth/auth.model';
+
+    !$localStorageChecked && checkLocaleStorage();
 </script>
 
 <ConfigLayout>
