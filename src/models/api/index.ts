@@ -59,7 +59,7 @@ const applyData = attach<ChainedCalls, Store<{ token: string; server: string }>,
     }
 );
 
-export const createRequest = <ResponseType>(uri: string, method: methodTypes) => {
+export const createRequest = <ResponseType>(uri: string, method: methodTypes = 'GET') => {
     return attach<object, Effect<ChainedCalls, ResponseType, AxiosError>>({
         effect: applyData,
         mapParams: (data) => {

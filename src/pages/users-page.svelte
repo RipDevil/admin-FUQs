@@ -6,4 +6,4 @@
     <title>Users Page</title>
 </svelte:head>
 
-<Layout title="Users Page" />
+<Layout title="Users Page " />
