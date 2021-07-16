@@ -25,7 +25,7 @@ const makeRequestFx = api.createEffect<ChainedCalls, AxiosResponse, AxiosError>(
         const decodedToken: { exp: number } = jwtDecode(params.token);
         const expirationDate = fromUnixTime(decodedToken.exp);
 
-        if (true || isPast(expirationDate)) {
+        if (isPast(expirationDate)) {
             const newTokens = await call<TokenPair>(params.server + '/auth/refresh', 'POST', {
                 refreshToken: params.refreshToken,
             });
